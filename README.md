@@ -76,11 +76,25 @@ Créez la classe PricingConfig qui contient :
 * et les getters pour récupérer ces valeurs
 
 ```java
-private final double vatRate;
-private final double freeShippingThreshold;
+package com.devops.cicd;
 
-public double getVatRate();
-public double getFreeShippingThreshold() ;
+public class PricingConfig {
+    private final double vatRate;
+    private final double freeShippingThreshold;
+
+    public PricingConfig(double vatRate, double freeShippingThreshold) {
+        //TODO
+    }
+
+    public double getVatRate() {
+        //TODO
+    }
+
+    public double getFreeShippingThreshold() {
+        //TODO
+    }
+}
+
 ```
 
 *Cette classe représente une dépendance du service métier.*
@@ -91,21 +105,36 @@ PricingService doit :
 * utiliser cette configuration pour effectuer les calculs
 
 ```java
+public final class PricingService {
 
-    public PricingService(PricingConfig config) ;
+    private final PricingConfig config;
 
-    public double applyVat(double amountExclVat) ;
+    public PricingService(PricingConfig config) {
+        //TODO
+    }
 
-    public double applyVipDiscount(double amount, boolean vip);
+    public double applyVat(double amountExclVat) {
+        //TODO
+    }
 
-    public double shippingCost(double amount) ;
+    public double applyVipDiscount(double amount, boolean vip) {
+        //TODO
+    }
+
+    public double shippingCost(double amount) {
+        //TODO
+    }
 
     /**
      * - TVA appliquée d'abord : HT -> TTC
      * - remise VIP appliquée sur TTC
      * - frais de livraison ajoutés ensuite (calculés sur TTC)
      */
-    public double finalTotal(double amountExclVat, boolean vip) ;
+    public double finalTotal(double amountExclVat, boolean vip) {
+        //TODO
+    }
+}
+
 ```
 
 ### Étape 3 – Écrire les tests unitaires
@@ -118,6 +147,17 @@ Dans PricingServiceTest :
     * échouer tant que l’implémentation n’est pas correcte
 
 *💡 Un test = une règle métier*
+
+```java
+class PricingServiceTest {
+
+    private final PricingConfig fakeConfig = new PricingConfig(20.0, 50.0);
+    private final PricingService service = new PricingService(fakeConfig);
+    
+    //TODO
+}
+
+```
 
 ### Étape 4 – Lancer les tests
 ```bash
