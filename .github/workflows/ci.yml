@@ -26,16 +26,13 @@ jobs:
           cache: 'maven'
       
       - name: Exécution des tests unitaires
-        run: mvn test -Dtest=**/*Test.java
+        run: mvn test
       
       - name: Publication des résultats des tests
         if: always()
-        uses: dorny/test-reporter@v1
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          name: Résultats Tests Unitaires
-          path: target/surefire-reports/*.xml
-          reporter: java-junit
-          fail-on-error: true
+          files: target/surefire-reports/*.xml
 
   integration-tests:
     name: Tests d'Intégration
@@ -54,13 +51,10 @@ jobs:
           cache: 'maven'
       
       - name: Exécution des tests d'intégration
-        run: mvn verify -DskipUnitTests
+        run: mvn verify -DskipTests
       
       - name: Publication des résultats des tests d'intégration
         if: always()
-        uses: dorny/test-reporter@v1
+        uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          name: Résultats Tests d'Intégration
-          path: target/failsafe-reports/*.xml
-          reporter: java-junit
-          fail-on-error: true
+          files: target/failsafe-reports/*.xml
