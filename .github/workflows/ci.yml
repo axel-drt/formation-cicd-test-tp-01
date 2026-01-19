@@ -26,13 +26,14 @@ jobs:
           cache: 'maven'
       
       - name: Exécution des tests unitaires
-        run: mvn test
+        run: mvn clean test
+        working-directory: ./order-service
       
       - name: Publication des résultats des tests
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          files: target/surefire-reports/*.xml
+          files: order-service/target/surefire-reports/*.xml
 
   integration-tests:
     name: Tests d'Intégration
@@ -52,9 +53,10 @@ jobs:
       
       - name: Exécution des tests d'intégration
         run: mvn verify -DskipTests
+        working-directory: ./order-service
       
       - name: Publication des résultats des tests d'intégration
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          files: target/failsafe-reports/*.xml
+          files: order-service/target/failsafe-reports/*.xml
