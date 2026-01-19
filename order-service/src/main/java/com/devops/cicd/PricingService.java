@@ -1,8 +1,10 @@
+package com.devops.cicd;
+
 public final class PricingService {
 
     private final PricingConfig config;
-    private static final float VIP_DISCOUNT = 0.9f;
-    private static final float SHIPPING_COST_LIMIT = 50;
+    private static final double VIP_DISCOUNT = 0.9f;
+    private static final double SHIPPING_COST_LIMIT = 50;
     private boolean isVip;
 
     public PricingService(PricingConfig config) {
