@@ -12,8 +12,9 @@ public final class PricingService {
     }
 
     public double applyVat(double amountExclVat) {
-        return amountExclVat*config.getVatRate();
+    return amountExclVat * (1 + config.getVatRate() / 100);
     }
+
 
     public double applyVipDiscount(double amount, boolean vip) {
         if(vip)
@@ -24,15 +25,9 @@ public final class PricingService {
     }
 
     public double shippingCost(double amount) {
-        if(amount >= SHIPPING_COST_LIMIT)
-        {
-            return 0;
-        }
-        else
-        {
-            return 4.99;
-        }
+    return amount >= config.getFreeShippingThreshold() ? 0 : 4.99;
     }
+
 
     /**
      * - TVA appliquée d'abord : HT -> TTC
@@ -40,6 +35,10 @@ public final class PricingService {
      * - frais de livraison ajoutés ensuite (calculés sur TTC)
      */
     public double finalTotal(double amountExclVat, boolean vip) {
-        return shippingCost(applyVipDiscount(applyVat(amountExclVat), isVip));
+        double ttc = applyVat(amountExclVat);               // HT -> TTC
+        double discounted = applyVipDiscount(ttc, vip);    // appliquer remise VIP
+        double shipping = shippingCost(discounted);        // calcul frais livraison
+        return discounted + shipping;                       // total final
     }
+
 }

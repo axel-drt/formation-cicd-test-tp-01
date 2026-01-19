@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PricingServiceTest {
 
-    private final PricingConfig fakeConfig = new PricingConfig(1.2, 50.0);
+    private final PricingConfig fakeConfig = new PricingConfig(20, 50.0);
     private final PricingService service = new PricingService(fakeConfig);
     
     @Test
